@@ -10,6 +10,7 @@ win = pygame.display.set_mode((height,width))
 pygame.display.set_caption('Cubes Game')
 run = True
 
+
 walkRight1 = [pygame.image.load('images/bartRight1-1.png'),
                 pygame.image.load('images/bartRight1-2.png'),
                 pygame.image.load('images/bartRight1-3.png'),
@@ -219,11 +220,6 @@ while run:
                 player1.x += 5
             else:
                 player1.x -= 5
-#             if player2.left == True:
-#                 player1.speed = -2
-#             else:
-#                 player1.speed = 2
-
         elif (math.fabs(player1.speed) == math.fabs(player2.speed)) and (player1.speed != 0):
             player2.speed = player2.speed // 2
             player1.speed = player1.speed // 2 
