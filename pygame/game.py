@@ -59,6 +59,7 @@ class players:
          self.right = False
          self.animCount = 0
          
+         
 def drowWindow():
     win.blit(bg,(0,0))
     animationFrame(player1)
@@ -222,6 +223,7 @@ while run:
 #                 player1.speed = -2
 #             else:
 #                 player1.speed = 2
+
         elif (math.fabs(player1.speed) == math.fabs(player2.speed)) and (player1.speed != 0):
             player2.speed = player2.speed // 2
             player1.speed = player1.speed // 2 
