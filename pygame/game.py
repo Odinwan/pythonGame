@@ -17,12 +17,9 @@ def drowWindow():
     checkBorder(player2)
     pygame.display.update()
 
+
 player1 = players(int(width - (width * 0.9)),390,60,120,walkLeft1,walkRight1,player1Stand,1)
 player2 = players(int(width - (width * 0.1)),390,60,120,walkLeft2,walkRight2,player2Stand,2)
-def createActionBox(player):
-    pygame.draw.rect(win, (255,0,0) , pygame.Rect(player.x  - 25,player.y , player.width + 30 , player.height + 30),  2) 
-
-
 def animationFrame(player):
     if player.animCount + 1 >= 30:
         player.animCount = 0
@@ -48,10 +45,10 @@ while run:
         if event.type == pygame.QUIT:
             run = False
     
-    touch = touchAction(player1,player2,touch)
-
+    # touch = touchAction(player1,player2,touch)
     move(player1,touch)
     move(player2,touch)
+    hit(player1,player2)
 
     if player1.speed >= 4:
         player1.speed = 4
