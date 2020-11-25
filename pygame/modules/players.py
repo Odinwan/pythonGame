@@ -14,6 +14,14 @@ class players:
          self.right = False
          self.animCount = 0
          self.number = number
+         
+class lifes:
+     def __init__(self, x, width, number):
+         self.x = x
+         self.y = 10
+         self.width = width
+         self.height = 20
+         self.number = number
 
 def V(player):
     x1 = player.x

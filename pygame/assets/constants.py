@@ -4,7 +4,8 @@ height = 500
 width = 500
 clock = pygame.time.Clock()
 win = pygame.display.set_mode((height,width))
-
+GREEN = (0, 200, 64)
+RED = (152,0,2)
 pygame.display.set_caption('Cubes Game')
 run = True
 touch = False
