@@ -11,23 +11,11 @@ def touchAction(player1,player2,touch):
     else:
         return True
 
-    
-        # if math.fabs(player1.speed) > math.fabs(player2.speed):
-        #     player1.speed = player1.speed // 2
-        #     player1.x -= (player1.speed+1)*5
-        #     if player1.right == True:
-        #         player2.x += 5
-        #     else:
-        #         player2.x -= 5
-        # elif math.fabs(player1.speed) < math.fabs(player2.speed):
-        #     player2.speed = player2.speed // 2
-        #     player2.x -= (player2.speed+1)*5
-        #     if player2.right == True:
-        #         player1.x += 5
-        #     else:
-        #         player1.x -= 5
-        # elif (math.fabs(player1.speed) == math.fabs(player2.speed)) and (player1.speed != 0):
-        #     player2.speed = player2.speed // 2
-        #     player1.speed = player1.speed // 2 
-        #     player2.x -= (player2.speed+1)*5
-        #     player1.x -= (player1.speed+1)*5
+def CheckLife(life1,life2):
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_f]:
+        life2.width -= 30
+        life2.x += 30
+    if  keys[pygame.K_l]:
+        life1.width -= 30   
+

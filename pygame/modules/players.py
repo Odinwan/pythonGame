@@ -20,6 +20,14 @@ class players:
         self.number = number
         self.widthBoxAction = width + 30
         self.heightBoxAction = height + 30
+         
+class lifes:
+     def __init__(self, x, width, number):
+         self.x = x
+         self.y = 10
+         self.width = width
+         self.height = 20
+         self.number = number
 
 def V(player):
     x1 = player.x
