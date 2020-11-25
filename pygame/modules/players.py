@@ -7,7 +7,7 @@ class players:
          self.walkRight = rightImage
          self.walkLeft = leftImage
          self.playerStand = playerStand
-         self.speed = 5
+         self.speed = 1
          self.jump = False
          self.jumpCount = 0
          self.left = False
