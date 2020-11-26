@@ -35,9 +35,6 @@ walkLeft1 = [pygame.image.load('images/png/Run__000Left.png'),
 
 player_img = pygame.image.load("images/png/Idle__000.png")
 
-# player1Stand =pygame.transform.scale("images/png/Idle__000.png", (50, 38))
-
-
 walkRight2 = [pygame.image.load('images/bartRight2-1.png'),
                 pygame.image.load('images/bartRight2-2.png'),
                 pygame.image.load('images/bartRight2-3.png'),
