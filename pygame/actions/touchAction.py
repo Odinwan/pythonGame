@@ -11,14 +11,14 @@ def touchAction(player1,player2,touch):
     else:
         return True
 
-def CheckLife(life1,life2):
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_g]:
-        life2.width -= 30
-        life2.x += 30
-    if  keys[pygame.K_l]:
-        life1.width -= 30   
-
-def checkCollision(self, player1, player2):
+def CheckLife(life,numb,value):
+    if numb == 2:
+        life.width -= 30
+        life.x += 30
+    else:
+        life.width -= 30   
+    
+def checkCollision( player1, player2):
     col = pygame.sprite.collide_rect(player1, player2)
+     
     return col

@@ -52,16 +52,16 @@ def animationFrame(player):
 
     if not(touch):
         if player.left:
-            win.blit(player.walkLeft[player.animCount // 5],(player.x,player.y))
+            win.blit(player.walkLeft[player.animCount // 5],(player.rect.x,player.rect.y))
             player.animCount += 1
         elif player.right:
-            win.blit(player.walkRight[player.animCount // 5],(player.x,player.y))
+            win.blit(player.walkRight[player.animCount // 5],(player.rect.x,player.rect.y))
             player.animCount += 1
         else :
-            win.blit(player.image,(player.x,player.y))
+            win.blit(player.image,(player.rect.x,player.rect.y))
             player.animCount = 0
     else :
-        win.blit(player.image,(player.x,player.y))
+        win.blit(player.image,(player.rect.x,player.rect.y))
         player.animCount = 0
 
 while run:
@@ -72,14 +72,17 @@ while run:
             run = False
     
     # touch = touchAction(player1,player2,touch)
-    CheckLife(lifeBox1,lifeBox2)
+    #CheckLife(lifeBox1,lifeBox2)
     move(player1,touch)
     move(player2,touch)
 
     hit(player1,player2, lifeBox1, lifeBox2)
-    hits = pygame.sprite.spritecollide(player1, plr2, False)
-    
-    print(checkCollision(player1,player2))
+    #hits = pygame.sprite.spritecollide(player1, plr2, False)
+    col = checkCollision(player1, player2)
+    print(col)
+    #print(player2.rect)
+    #print(pygame.sprite.collide_rect(player1, player2))
+    #col=player1.rect.colliderect(player2.rect)
     #if hits:
         #print(hits)
     if player1.speed >= 4:
