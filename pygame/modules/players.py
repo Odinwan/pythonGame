@@ -1,7 +1,7 @@
 import pygame
 from assets.constants import *
 class players(pygame.sprite.Sprite):
-    def __init__(self, x ,y , player_img , leftImage,rightImage ,number):
+    def __init__(self, x ,y , player_img , walk,number):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.transform.scale(player_img, (52, 90))
         self.rect = self.image.get_rect()
@@ -9,8 +9,7 @@ class players(pygame.sprite.Sprite):
         self.rect.y = y
         self.width = width
         self.height = height
-        self.walkRight = rightImage
-        self.walkLeft = leftImage
+        self.walk = walk
         self.playerStand = pygame.Surface((52,90))
         self.speed = 1
         self.jump = False

@@ -23,8 +23,8 @@ def drowWindow():
     pygame.display.update()
 
 
-player1 = players(int(width - (width * 0.9)),390, player_img,walkLeft1,walkRight1,1)
-player2 = players(int(width - (width * 0.1)),390, player2Stand, walkLeft2,walkRight2,2)
+player1 = players(int(width - (width * 0.9)),390, player_img,walk1,1)
+player2 = players(int(width - (width * 0.1)),390, player2Stand,walk2,2)
 lifeBox1 = lifes(10, 220,1)
 lifeBox2 = lifes((height - 230), 220,2)
 
@@ -62,16 +62,22 @@ def animationFrame(player):
 
     if not(touch):
         if player.left:
-            win.blit(player.walkLeft[player.animCount // 5],(player.rect.x,player.rect.y))
+            win.blit(pygame.transform.flip(player.walk[player.animCount // 5],True,False),(player.rect.x,player.rect.y))
             player.animCount += 1
         elif player.right:
-            win.blit(player.walkRight[player.animCount // 5],(player.rect.x,player.rect.y))
+            win.blit(player.walk[player.animCount // 5],(player.rect.x,player.rect.y))
             player.animCount += 1
         else :
-            win.blit(player.image,(player.rect.x,player.rect.y))
+            if player.position == 'right':
+                win.blit(player.image,(player.rect.x,player.rect.y))
+            else:
+                win.blit(pygame.transform.flip(player.image,True,False),(player.rect.x,player.rect.y))
             player.animCount = 0
     else :
-        win.blit(player.image,(player.rect.x,player.rect.y))
+        if player.position == 'right':
+            win.blit(player.image,(player.rect.x,player.rect.y))
+        else:
+            win.blit(pygame.transform.flip(player.image,True,False),(player.rect.x,player.rect.y))
         player.animCount = 0
 
 while run:
