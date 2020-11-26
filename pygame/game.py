@@ -23,10 +23,16 @@ def drowWindow():
     pygame.display.update()
 
 
-player1 = players(int(width - (width * 0.9)),390,60,120,walkLeft1,walkRight1,player1Stand,1)
-player2 = players(int(width - (width * 0.1)),390,60,120,walkLeft2,walkRight2,player2Stand,2)
+player1 = players(int(width - (width * 0.9)),390, player_img,walkLeft1,walkRight1,1)
+player2 = players(int(width - (width * 0.1)),390, player2Stand, walkLeft2,walkRight2,2)
 lifeBox1 = lifes(10, 220,1)
 lifeBox2 = lifes((height - 230), 220,2)
+
+
+plr2 = pygame.sprite.Group()
+plr2.add(player2)
+
+
 
 def createLifeBox1(life):
     pygame.draw.rect(win, GREEN , (life.x, life.y, life.width, life.height) )
@@ -52,10 +58,10 @@ def animationFrame(player):
             win.blit(player.walkRight[player.animCount // 5],(player.x,player.y))
             player.animCount += 1
         else :
-            win.blit(player.playerStand,(player.x,player.y))
+            win.blit(player.image,(player.x,player.y))
             player.animCount = 0
     else :
-        win.blit(player.playerStand,(player.x,player.y))
+        win.blit(player.image,(player.x,player.y))
         player.animCount = 0
 
 while run:
@@ -69,8 +75,13 @@ while run:
     CheckLife(lifeBox1,lifeBox2)
     move(player1,touch)
     move(player2,touch)
-    hit(player1,player2)
 
+    hit(player1,player2, lifeBox1, lifeBox2)
+    hits = pygame.sprite.spritecollide(player1, plr2, False)
+    
+    print(checkCollision(player1,player2))
+    #if hits:
+        #print(hits)
     if player1.speed >= 4:
         player1.speed = 4
     if player2.speed >= 4:

@@ -1,14 +1,17 @@
 import pygame
 from assets.constants import *
-class players:
-    def __init__(self, x ,y ,width ,height,leftImage,rightImage,playerStand,number):
+class players(pygame.sprite.Sprite):
+    def __init__(self, x ,y , player_img , leftImage,rightImage ,number):
+        pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
+        self.image = pygame.transform.scale(player_img, (52, 90))
+        self.rect = self.image.get_rect()
         self.width = width
         self.height = height
         self.walkRight = rightImage
         self.walkLeft = leftImage
-        self.playerStand = playerStand
+        self.playerStand = pygame.Surface((52,90))
         self.speed = 1
         self.jump = False
         self.jumpCount = 0
@@ -18,8 +21,8 @@ class players:
         self.animCount = 0
         self.animHit = 0
         self.number = number
-        self.widthBoxAction = width + 30
-        self.heightBoxAction = height + 30
+        self.widthBoxAction = 52 + 30
+        self.heightBoxAction = 90 + 30
          
 class lifes:
      def __init__(self, x, width, number):
@@ -31,9 +34,9 @@ class lifes:
 
 def V(player):
     x1 = player.x
-    x2 = player.x + player.width
+    x2 = player.x + player.get_width()
     y1 = player.y
-    y2 = player.y + player.height
+    y2 = player.y + player.get_height()
     xx = set()
     yy = set()
     for i in range(x1,x2):
