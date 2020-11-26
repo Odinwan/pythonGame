@@ -81,8 +81,10 @@ def hit(player1,player2,lifeBox1, lifeBox2):
                         player2.x += 10
                     CheckLife(lifeBox1,lifeBox2)
             elif (15 <= player1.animHit <= 30):
+                print(player1.widthBoxAction)
                 player1.widthBoxAction -= 5
-                if (player1.widthBoxAction == 90):
+                if (player1.widthBoxAction <= 90):
+                    player1.widthBoxAction = 90
                     player1.hit = False
                     player1.animHit = 0
         elif(player2.hit):

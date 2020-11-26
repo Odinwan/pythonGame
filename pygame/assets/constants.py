@@ -38,20 +38,30 @@ player_img = pygame.image.load("images/png/Idle__000.png")
 # player1Stand =pygame.transform.scale("images/png/Idle__000.png", (50, 38))
 
 
-walkRight2 = [pygame.image.load('images/bartRight2-1.png'),
-                pygame.image.load('images/bartRight2-2.png'),
-                pygame.image.load('images/bartRight2-3.png'),
-                pygame.image.load('images/bartRight2-4.png'),
-                pygame.image.load('images/bartRight2-5.png'),
-                pygame.image.load('images/bartRight2-6.png')]
+walkRight2 = [pygame.image.load('images/png/Run__000.png'),
+                pygame.image.load('images/png/Run__001.png'),
+                pygame.image.load('images/png/Run__002.png'),
+                pygame.image.load('images/png/Run__003.png'),
+                pygame.image.load('images/png/Run__004.png'),
+                pygame.image.load('images/png/Run__005.png'),
+                pygame.image.load('images/png/Run__006.png'),
+                pygame.image.load('images/png/Run__007.png'),
+                pygame.image.load('images/png/Run__008.png'),
+                pygame.image.load('images/png/Run__009.png')
+                ]
 
-walkLeft2 = [pygame.image.load('images/bartLeft2-1.png'),
-                pygame.image.load('images/bartLeft2-2.png'),
-                pygame.image.load('images/bartLeft2-3.png'),
-                pygame.image.load('images/bartLeft2-4.png'),
-                pygame.image.load('images/bartLeft2-5.png'),
-                pygame.image.load('images/bartLeft2-6.png')]
+walkLeft2 = [pygame.image.load('images/png/Run__000Left.png'),
+                pygame.image.load('images/png/Run__001Left.png'),
+                pygame.image.load('images/png/Run__002Left.png'),
+                pygame.image.load('images/png/Run__003Left.png'),
+                pygame.image.load('images/png/Run__004Left.png'),
+                pygame.image.load('images/png/Run__005Left.png'),
+                pygame.image.load('images/png/Run__006Left.png'),
+                pygame.image.load('images/png/Run__007Left.png'),
+                pygame.image.load('images/png/Run__008Left.png'),
+                pygame.image.load('images/png/Run__009Left.png')]
 
-player2Stand = pygame.image.load("images/bartLeft2-3.png")
+player2Stand = pygame.image.load("images/png/Idle__000.png")
+
 player2_rect = player2Stand.get_rect()
 bg = pygame.image.load("images/USn6ve.jpg")

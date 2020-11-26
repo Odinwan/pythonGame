@@ -14,6 +14,7 @@ class players(pygame.sprite.Sprite):
         self.playerStand = pygame.Surface((52,90))
         self.speed = 1
         self.jump = False
+        self.position = 'left'
         self.jumpCount = 0
         self.hit = False
         self.left = False

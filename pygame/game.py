@@ -7,7 +7,7 @@ from actions.touchAction import *
 
 
 pygame.init()
-      
+
 def drowWindow():
     win.blit(bg,(0,0))
     animationFrame(player1)
@@ -38,13 +38,23 @@ def createLifeBox1(life):
     pygame.draw.rect(win, GREEN , (life.x, life.y, life.width, life.height) )
 
 def createLifeBoxDamaged1():
-    pygame.draw.rect(win, RED ,(10, 10, 220, 20) ) 
+    pygame.draw.rect(win, RED ,(10, 10, 220, 20) )
 
 def createLifeBox2(life):
     pygame.draw.rect(win, GREEN , (life.x, life.y, life.width, life.height) )
 
 def createLifeBoxDamaged2():
-    pygame.draw.rect(win, RED ,((height - 230),10 ,220 ,20 ) ) 
+    pygame.draw.rect(win, RED ,((height - 230),10 ,220 ,20 ) )
+
+def checkPosition(player1,player2): 
+    print(player1.rect.x)
+    if (player1.rect.x >= player2.rect.x): 
+        player1.position = 'left'
+        player2.position = 'right'
+    else:
+        player2.position = 'left'
+        player1.position = 'right'
+
 
 def animationFrame(player):
     if player.animCount + 1 >= 30:
@@ -58,10 +68,16 @@ def animationFrame(player):
             win.blit(player.walkRight[player.animCount // 5],(player.x,player.y))
             player.animCount += 1
         else :
-            win.blit(player.image,(player.x,player.y))
+            if player.position == 'right':
+                win.blit(player.image,(player.x,player.y))
+            else:
+                win.blit(pygame.transform.flip(player.image, True,False),(player.x,player.y))
             player.animCount = 0
     else :
-        win.blit(player.image,(player.x,player.y))
+        if player.position == 'right':
+            win.blit(player.image,(player.x,player.y))
+        else:
+            win.blit(pygame.transform.flip(player.image, True,False),(player.x,player.y))
         player.animCount = 0
 
 while run:
@@ -70,18 +86,15 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-    
+
     # touch = touchAction(player1,player2,touch)
     CheckLife(lifeBox1,lifeBox2)
     move(player1,touch)
     move(player2,touch)
 
     hit(player1,player2, lifeBox1, lifeBox2)
-    hits = pygame.sprite.spritecollide(player1, plr2, False)
+    checkPosition(player1,player2)
     
-    print(checkCollision(player1,player2))
-    #if hits:
-        #print(hits)
     if player1.speed >= 4:
         player1.speed = 4
     if player2.speed >= 4:
@@ -90,7 +103,7 @@ while run:
         player1.speed = -4
     if player2.speed <= -4:
         player2.speed = -4
-    
+
     drowWindow()
 
 pygame.quit()
