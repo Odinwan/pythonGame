@@ -29,7 +29,7 @@ def move(player,touch):
         else:
             player.x = 2
     elif a.get('right'):
-        if  player.x + player.speed < (width - player.width - 2):
+        if  player.x + player.speed < (width - 52 - 2):
             if not touch:
                 if not player.right:
                     player.speed = 0
@@ -38,7 +38,7 @@ def move(player,touch):
                 player.left = False
                 player.right = True
             else:
-                player.x = (width - player.width - 2)  
+                player.x = (width - 52 - 2)  
     else:
         player.left = False
         player.right = False
@@ -64,11 +64,11 @@ def move(player,touch):
 def checkBorder(player):
     if  player.x <= 2:
         player.x = 2
-    if  (player.x >= (width - player.width - 2)):
-        player.x = (width - player.width - 2)  
+    if  (player.x >= (width - 52 - 2)):
+        player.x = (width - 52 - 2)  
 
-def hit(player1,player2):
-        if (player1.hit):
+def hit(player1,player2,lifeBox1, lifeBox2):
+        if player1.hit:
             player1.animHit += 1
             if (player1.animHit < 15):
                 player1.widthBoxAction += 5
@@ -79,6 +79,7 @@ def hit(player1,player2):
                     else:
                         player1.x -= 5
                         player2.x += 10
+                    CheckLife(lifeBox1,lifeBox2)
             elif (15 <= player1.animHit <= 30):
                 player1.widthBoxAction -= 5
                 if (player1.widthBoxAction == 90):
