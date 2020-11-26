@@ -5,15 +5,12 @@ from modules.players import *
 from actions.move import *
 from actions.touchAction import *
 
-
 pygame.init()
 
 def drowWindow():
     win.blit(bg,(0,0))
     animationFrame(player1)
     animationFrame(player2)
-    createActionBox(player1)
-    createActionBox(player2)
     checkBorder(player1)
     checkBorder(player2)
     createLifeBoxDamaged1()
@@ -87,20 +84,11 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    # touch = touchAction(player1,player2,touch)
-    #CheckLife(lifeBox1,lifeBox2)
     move(player1,touch)
     move(player2,touch)
     checkPosition(player1,player2)
     hit(player1,player2, lifeBox1, lifeBox2)
-    #hits = pygame.sprite.spritecollide(player1, plr2, False)
-    col = checkCollision(player1, player2)
-    print(col)
-    #print(player2.rect)
-    #print(pygame.sprite.collide_rect(player1, player2))
-    #col=player1.rect.colliderect(player2.rect)
-    #if hits:
-        #print(hits)
+
     if player1.speed >= 4:
         player1.speed = 4
     if player2.speed >= 4:
