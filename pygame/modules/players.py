@@ -3,10 +3,10 @@ from assets.constants import *
 class players(pygame.sprite.Sprite):
     def __init__(self, x ,y , player_img , leftImage,rightImage ,number):
         pygame.sprite.Sprite.__init__(self)
-        self.x = x
-        self.y = y
         self.image = pygame.transform.scale(player_img, (52, 90))
         self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
         self.width = width
         self.height = height
         self.walkRight = rightImage
@@ -22,8 +22,8 @@ class players(pygame.sprite.Sprite):
         self.animCount = 0
         self.animHit = 0
         self.number = number
-        self.widthBoxAction = 52 + 30
-        self.heightBoxAction = 90 + 30
+        self.widthBoxAction = 52 
+        self.heightBoxAction = 90 
          
 class lifes:
      def __init__(self, x, width, number):
@@ -34,10 +34,10 @@ class lifes:
          self.number = number
 
 def V(player):
-    x1 = player.x
-    x2 = player.x + player.get_width()
-    y1 = player.y
-    y2 = player.y + player.get_height()
+    x1 = player.rect.x
+    x2 = player.rect.x + player.rect.get_width()
+    y1 = player.rect.y
+    y2 = player.rect.y + player.rect.get_height()
     xx = set()
     yy = set()
     for i in range(x1,x2):
@@ -50,10 +50,10 @@ def V(player):
     return list
 
 def boxActiveUnion(box):
-    x1 = box.x
-    x2 = box.x + box.widthBoxAction
-    y1 = box.y
-    y2 = box.y + box.heightBoxAction
+    x1 = box.rect.x
+    x2 = box.rect.x + box.widthBoxAction
+    y1 = box.rect.y
+    y2 = box.rect.y + box.heightBoxAction
     xx = set()
     yy = set()
     for i in range(x1,x2):
@@ -66,4 +66,4 @@ def boxActiveUnion(box):
     return list
 
 def createActionBox(player):
-    return pygame.draw.rect(win, (255,0,0) , pygame.Rect(player.x - 25, player.y , player.widthBoxAction , player.heightBoxAction),  2) 
+    return pygame.draw.rect(win, (255,0,0) , pygame.Rect(player.rect.x , player.rect.y , player.widthBoxAction , player.heightBoxAction),  2) 
