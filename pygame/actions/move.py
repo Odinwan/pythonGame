@@ -50,14 +50,13 @@ def move(player,touch):
         if a.get('jump'):
             player.jump = True
     else:
-        if player.jumpCount < 15:
+        if player.jumpCount < 30:
             player.jumpCount += 1
-            player.rect.y -= 1
-        elif player.jumpCount >= 15 and player.jumpCount <= 29:
+            player.rect.y -= 3
+        elif player.jumpCount >= 30 and player.jumpCount <= 59:
             player.jumpCount += 1
-            player.rect.y += 1
-            print(player.jumpCount)
-        elif player.jumpCount >= 30:
+            player.rect.y += 3
+        elif player.jumpCount >= 60:
             player.jumpCount = 0
             player.jump = False
 
@@ -69,6 +68,8 @@ def checkBorder(player):
 
 def hit(player1,player2,lifeBox1, lifeBox2):
         if player1.hit:
+            player1.Strike()
+            hb.update()
             player1.animHit += 1
             if (player1.animHit < 15):
                 player1.rect.width += 5
@@ -106,12 +107,6 @@ def checkTouch(attackPlayer,defPlayer):
     return checkCollision(attackPlayer, defPlayer)
 
 
-# def checkTouch(attackPlayer,defPlayer):
-#     pl1=boxActiveUnion(attackPlayer)
-#     pl2=boxActiveUnion(defPlayer)
-#     if pl1[0].isdisjoint(pl2[0]):
-#         return False
-#     else:
-#         return True
+
 
 
