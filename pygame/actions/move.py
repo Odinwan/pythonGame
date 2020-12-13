@@ -4,62 +4,33 @@ from actions.touchAction import *
 from modules.players import *
 import time
 
-def move(player,touch):
+def actionPlayer(player,touch,window,index):
     keys = pygame.key.get_pressed()
-    if player.number == 1:
-        a = {'left' : keys[pygame.K_a],
+    if index == 1:
+        controlKeys = {'left' : keys[pygame.K_a],
             'right' : keys[pygame.K_d],
             'strike' : keys[pygame.K_g],
             'jump' : keys[pygame.K_LSHIFT]}
     else:
-        a = {'left' : keys[pygame.K_LEFT],
+        controlKeys = {'left' : keys[pygame.K_LEFT],
             'right' : keys[pygame.K_RIGHT],
             'strike' : keys[pygame.K_m],
             'jump' : keys[pygame.K_SPACE]}
-
-    if a.get('left'):
-        if  player.rect.x + player.speed > 2:
-            if not touch:
-                if not player.left:
-                    player.speed = 0
-                player.speed -= 1
-                player.rect.x += player.speed
-                player.left = True
-                player.right = False
+            
+    if not(player.hit):
+        if controlKeys.get('left'):
+            left(player)
+        elif controlKeys.get('right'):
+            right(player)
         else:
-            player.x = 2
-    elif a.get('right'):
-        if  player.rect.x + player.speed < (width - 52 - 2):
-            if not touch:
-                if not player.right:
-                    player.speed = 0
-                player.speed += 1
-                player.rect.x += player.speed
-                player.left = False
-                player.right = True
-            else:
-                player.rect.x = (width - 52 - 2)
-    else:
-        player.left = False
-        player.right = False
-        player.speed = 0
-    if a.get('strike'):
-        if not(player.hit):
+            stay(player)
+        if controlKeys.get('strike'):
             player.hit = True
-    if not(player.jump):
-        if a.get('jump'):
-            player.jump = True
-    else:
-        if player.jumpCount < 15:
-            player.jumpCount += 1
-            player.rect.y -= 1
-        elif player.jumpCount >= 15 and player.jumpCount <= 29:
-            player.jumpCount += 1
-            player.rect.y += 1
-            print(player.jumpCount)
-        elif player.jumpCount >= 30:
-            player.jumpCount = 0
-            player.jump = False
+        if not(player.jump):
+            if controlKeys.get('jump'):
+                player.jump = True
+        else:
+            jump(player)
 
 def checkBorder(player):
     if  player.rect.x <= 2:
@@ -67,51 +38,118 @@ def checkBorder(player):
     if  (player.rect.x >= (width - 52 - 2)):
         player.rect.x = (width - 52 - 2)
 
-def hit(player1,player2,lifeBox1, lifeBox2):
-        if player1.hit:
-            player1.animHit += 1
-            if (player1.animHit < 15):
-                player1.rect.width += 5
-                if (checkTouch(player1,player2) == 1):
-                    if player1.rect.x > player2.rect.x:
-                        player1.rect.x += 5
-                        player2.rect.x -= 10
-                    else:
-                        player1.rect.x -= 5
-                        player2.rect.x += 10
-                    if player1.animHit == 14:
-                        CheckLife(lifeBox2,player2.number,15)
+#Движение влево
+def left(player):
+    player.actionType = 'walk'
+    player.left = True
+    player.right = False
+    if  player.rect.x + player.speed > 2:
+        if not player.left:
+            player.speed = 0
+        if not(player.speed == -4):
+            player.speed -= 1
+        player.rect.x += player.speed
+    else:
+        player.x = 2
+
+#Движение вправо
+def right(player):
+    player.actionType = 'walk'
+    player.left = False
+    player.right = True
+    if  player.rect.x + player.speed < (width - 52 - 2):
+        if not player.right:
+            player.speed = 0
+        if not(player.speed == 4):
+            player.speed += 1
+        player.rect.x += player.speed
+    else:
+        player.rect.x = (width - 52 - 2)
 
 
-            elif (15 <= player1.animHit <= 30):
-                player1.rect.width -= 5
-                if (player1.rect.width <= 52):
-                    player1.rect.width = 52
-                    player1.hit = False
-                    player1.animHit = 0
-        elif(player2.hit):
-            player2.animHit += 1
-            if (player2.animHit < 15):
-                player2.rect.width += 5
-                if (checkTouch(player2,player1) == 1):
-                    print('attack')
-            elif (15 <= player2.animHit <= 30):
-                player2.rect.width -= 5
-                if (player2.rect.width <= 52):
-                    player2.rect.width = 52
-                    player2.hit = False
-                    player2.animHit = 0
+
+#обычное состояние
+def stay(player):
+    if not(player.hit):
+        player.actionType = 'stay'
+        player.left = False
+        player.right = False
+        player.speed = 0
+    else:
+        player.actionType = 'stay'
+
+
+#прыжок
+def jump(player):
+    player.actionType = 'jump'
+    if player.jumpCount < 25:
+        player.jumpCount += 1
+        player.rect.y -= 1
+        if player.left:
+            player.rect.x -= 1
+        if player.right:
+            player.rect.x += 1
+    elif player.jumpCount >= 25 and player.jumpCount <= 49:
+        player.jumpCount += 1
+        player.rect.y += 1
+        if player.left:
+            player.rect.x -= 1
+        if player.right:
+            player.rect.x += 1
+    elif player.jumpCount >= 50:
+        player.jumpCount = 0
+        player.jump = False
+
+#Удар
+def hit(player):
+    player.actionType = 'attack'
+    if player.attackCount <= 18:
+        player.attackCount += 1
+    else:
+        player.attackCount = 0
+        player.hit = False
+
+def checkAttack(player):
+    if player.hit: hit(player)
+
+
+# def hit(player1,player2,lifeBox1, lifeBox2):
+#         if player1.hit:
+#             player1.actionType = 'attack'
+#             player1.animCount += 1
+#             if (player1.animCount < 15):
+#                 if player1.position == 'right':
+#                     player1.rect.width += 5
+#                 elif player1.position == 'left':
+#                     player1.rect.width -= 5
+#                 if (checkTouch(player1,player2) == 1):
+#                     if player1.rect.x > player2.rect.x:
+#                         player1.rect.x += 5
+#                         player2.rect.x -= 10
+#                     else:
+#                         player1.rect.x -= 5
+#                         player2.rect.x += 10
+#                     if player1.animCount == 14:
+#                         CheckLife(lifeBox2,player2.number,15)
+#             elif (15 <= player1.animCount <= 45):
+#                 player1.rect.width -= 5
+#                 if (player1.rect.width <= 52):
+#                     player1.rect.width = 52
+#                     player1.actionType = 'stay'
+#                     player1.hit = False
+#                     player1.animCount = 0
+#         elif(player2.hit):
+#             player2.animCount += 1
+#             if (player2.animCount < 15):
+#                 player2.rect.width += 5
+#                 if (checkTouch(player2,player1) == 1):
+#                     print('attack')
+#             elif (15 <= player2.animCount <= 30):
+#                 player2.rect.width -= 5
+#                 if (player2.rect.width <= 52):
+#                     player2.rect.width = 52
+#                     player2.hit = False
+#                     player2.animCount = 0
 
 def checkTouch(attackPlayer,defPlayer):
     return checkCollision(attackPlayer, defPlayer)
-
-
-# def checkTouch(attackPlayer,defPlayer):
-#     pl1=boxActiveUnion(attackPlayer)
-#     pl2=boxActiveUnion(defPlayer)
-#     if pl1[0].isdisjoint(pl2[0]):
-#         return False
-#     else:
-#         return True
-
-
