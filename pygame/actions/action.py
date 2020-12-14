@@ -34,8 +34,6 @@ def stayPlayer(player):
 
 def jumpPlayer(player):
     if player.position == 'left':
-        win.blit(pygame.transform.flip(player.imagesJump[player.animCount // 5],True,False),(player.rect.x,player.rect.y))
-        player.animCount += 1
+        win.blit(pygame.transform.flip(player.imagesJump[player.jumpCount // 6],True,False),(player.rect.x,player.rect.y))
     elif player.position == 'right':
-        win.blit(player.imagesJump[player.animCount // 5],(player.rect.x,player.rect.y))
-        player.animCount += 1
+        win.blit(player.imagesJump[player.jumpCount // 6],(player.rect.x,player.rect.y))

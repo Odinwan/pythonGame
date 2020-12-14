@@ -29,6 +29,7 @@ class players(pygame.sprite.Sprite):
 
         self.animCount = 0
         self.jumpCount = 0
+        self.jumpValue = 5
         self.attackCount = 0
         self.walkCount = 0
 

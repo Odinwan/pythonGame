@@ -25,7 +25,8 @@ def actionPlayer(player,touch,window,index):
         else:
             stay(player)
         if controlKeys.get('strike'):
-            player.hit = True
+            if not(player.jump):
+                player.hit = True
         if not(player.jump):
             if controlKeys.get('jump'):
                 player.jump = True
@@ -84,19 +85,20 @@ def jump(player):
     player.actionType = 'jump'
     if player.jumpCount < 25:
         player.jumpCount += 1
-        player.rect.y -= 1
+        player.rect.y -= 2
         if player.left:
             player.rect.x -= 1
         if player.right:
             player.rect.x += 1
-    elif player.jumpCount >= 25 and player.jumpCount <= 49:
+    elif player.jumpCount >= 25 and player.jumpCount <= 50:
         player.jumpCount += 1
-        player.rect.y += 1
+        if (player.rect.y != 480):
+            player.rect.y += 2
         if player.left:
             player.rect.x -= 1
         if player.right:
             player.rect.x += 1
-    elif player.jumpCount >= 50:
+    elif player.jumpCount > 50:
         player.jumpCount = 0
         player.jump = False
 

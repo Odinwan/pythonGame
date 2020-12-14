@@ -12,8 +12,8 @@ pygame.init()
 
 members = []
 
-members.append(players(int(width - (width * 0.2)),390,firstStay,firstWalk,firstAttack,firstJump,0))
-members.append(players(int(width - (width * 0.9)),390,secondStay,secondWalk,secondAttack,secondJump,1))
+members.append(players(int(width - (width * 0.2)),480,firstStay,firstWalk,firstAttack,firstJump,0))
+members.append(players(int(width - (width * 0.9)),480,secondStay,secondWalk,secondAttack,secondJump,1))
 
 def drowWindow():
 
