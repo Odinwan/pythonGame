@@ -3,10 +3,10 @@ import math
 
 from assets.constants import *
 from modules.players import *
-from actions.move import *
+from actions.physicalAction import *
 from actions.touchAction import *
-from actions.action import *
-from actions.default import *
+from actions.animationActions import *
+from actions.commonState import *
 
 pygame.init()
 
@@ -41,7 +41,7 @@ def drowWindow():
 
     for player in members:
         allAnimationSwich(player)
-        actionPlayer(player,touch,win,members.index(player))
+        physicalAction(player,touch,win,members.index(player))
         checkBorder(player)
         checkAttack(player)
 

@@ -4,7 +4,7 @@ from actions.touchAction import *
 from modules.players import *
 import time
 
-def actionPlayer(player,touch,window,index):
+def physicalAction(player,touch,window,index):
     keys = pygame.key.get_pressed()
     if index == 1:
         controlKeys = {'left' : keys[pygame.K_a],
