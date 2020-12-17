@@ -9,6 +9,7 @@ RED = (152,0,2)
 pygame.display.set_caption('Cubes Game')
 run = True
 touch = False
+go = pygame.transform.scale(pygame.image.load('images/GameOver.jpg'),(800,600))
 
 firstWalk = [pygame.image.load('images/png/Run__000.png'),
                 pygame.image.load('images/png/Run__001.png'),
