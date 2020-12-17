@@ -23,11 +23,6 @@ firstWalk = [pygame.image.load('images/png/Run__000.png'),
                 pygame.image.load('images/png/Run__009.png')
                 ]
 
-<<<<<<< HEAD
-player_img = pygame.image.load("images/png/Idle__000.png")
-
-walk2 = [pygame.transform.scale(pygame.image.load('images/png2/Run__000.png'),(71,90)),
-=======
 firstAttack = [pygame.transform.scale(pygame.image.load('images/png/Attack__000.png'),(90,100)),
                 pygame.transform.scale(pygame.image.load('images/png/Attack__001.png'),(90,100)),
                 pygame.transform.scale(pygame.image.load('images/png/Attack__002.png'),(90,100)),
@@ -63,7 +58,6 @@ firstStay = [pygame.transform.scale(pygame.image.load('images/png/Idle__000.png'
         ]  
 
 secondWalk = [pygame.transform.scale(pygame.image.load('images/png2/Run__000.png'),(71,90)),
->>>>>>> 713e8f8b39adf9bc0f78be94102df15cb9ee7011
                 pygame.transform.scale(pygame.image.load('images/png2/Run__001.png'),(71,90)),
                 pygame.transform.scale(pygame.image.load('images/png2/Run__002.png'),(71,90)),
                 pygame.transform.scale(pygame.image.load('images/png2/Run__003.png'),(71,90)),
