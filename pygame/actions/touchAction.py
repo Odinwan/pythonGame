@@ -10,7 +10,4 @@ def CheckLife(life,numb,value):
     else:
         life.width -= 30   
     
-def checkCollision( player1, player2):
-    col = pygame.sprite.collide_rect(player1, player2)
-     
-    return col
+def checkCollision( player1, player2): return pygame.sprite.collide_rect(player1, player2)
