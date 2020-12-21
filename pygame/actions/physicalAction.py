@@ -4,7 +4,7 @@ from actions.touchAction import *
 from modules.players import *
 import time
 
-def physicalAction(player,touch,window,index):
+def physicalAction(player,touch,window,index,player2):
     keys = pygame.key.get_pressed()
     if index == 1:
         controlKeys = {'left' : keys[pygame.K_a],
@@ -26,7 +26,9 @@ def physicalAction(player,touch,window,index):
             stay(player)
         if controlKeys.get('strike'):
             if not(player.jump):
-                player.hit = True
+                if player2.actionType != 'shock':
+                    player.hit = True
+
         if not(player.jump):
             if controlKeys.get('jump'):
                 player.jump = True
@@ -71,13 +73,14 @@ def right(player):
 
 #обычное состояние
 def stay(player):
-    if not(player.hit):
-        player.actionType = 'stay'
-        player.left = False
-        player.right = False
-        player.speed = 0
-    else:
-        player.actionType = 'stay'
+    if player.actionType != 'shock':
+        if not(player.hit):
+            player.actionType = 'stay'
+            player.left = False
+            player.right = False
+            player.speed = 0
+        else:
+            player.actionType = 'stay'
 
 
 #прыжок
@@ -103,55 +106,25 @@ def jump(player):
         player.jump = False
 
 #Удар
-def hit(player):
-    player.actionType = 'attack'
-    if player.attackCount <= 18:
-        player.attackCount += 1
-    else:
-        player.attackCount = 0
-        player.hit = False
-
-def checkAttack(player):
-    if player.hit: hit(player)
-
-
-# def hit(player1,player2,lifeBox1, lifeBox2):
-#         if player1.hit:
-#             player1.actionType = 'attack'
-#             player1.animCount += 1
-#             if (player1.animCount < 15):
-#                 if player1.position == 'right':
-#                     player1.rect.width += 5
-#                 elif player1.position == 'left':
-#                     player1.rect.width -= 5
-#                 if (checkTouch(player1,player2) == 1):
-#                     if player1.rect.x > player2.rect.x:
-#                         player1.rect.x += 5
-#                         player2.rect.x -= 10
-#                     else:
-#                         player1.rect.x -= 5
-#                         player2.rect.x += 10
-#                     if player1.animCount == 14:
-#                         CheckLife(lifeBox2,player2.number,15)
-#             elif (15 <= player1.animCount <= 45):
-#                 player1.rect.width -= 5
-#                 if (player1.rect.width <= 52):
-#                     player1.rect.width = 52
-#                     player1.actionType = 'stay'
-#                     player1.hit = False
-#                     player1.animCount = 0
-#         elif(player2.hit):
-#             player2.animCount += 1
-#             if (player2.animCount < 15):
-#                 player2.rect.width += 5
-#                 if (checkTouch(player2,player1) == 1):
-#                     print('attack')
-#             elif (15 <= player2.animCount <= 30):
-#                 player2.rect.width -= 5
-#                 if (player2.rect.width <= 52):
-#                     player2.rect.width = 52
-#                     player2.hit = False
-#                     player2.animCount = 0
+def hit(box, player,playerAttack):
+    if playerAttack.hit:
+        playerAttack.actionType = 'attack'
+        if playerAttack.attackCount <= 18:
+            playerAttack.attackCount += 1
+            #ПРоверка на касание
+            if checkTouch(box, player) == 1: 
+                    while player.shockCount <= 1000:
+                        print(player.shockCount)
+                        player.actionType = 'shock'
+                        box.rect.x = playerAttack.rect.x                        
+                        player.shockCount +=1
+                    player.shockCount = 0
+                    player.actionType ='stay'
+        else:
+            playerAttack.attackCount = 0
+            playerAttack.hit = False
+   
 
 def checkTouch(attackPlayer,defPlayer):
     return checkCollision(attackPlayer, defPlayer)
+

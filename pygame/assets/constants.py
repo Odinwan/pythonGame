@@ -103,4 +103,7 @@ secondStay = [pygame.transform.scale(pygame.image.load('images/png2/Idle__000.pn
         pygame.transform.scale(pygame.image.load('images/png2/Idle__008.png'),(52,90)),
         pygame.transform.scale(pygame.image.load('images/png2/Idle__009.png'),(52,90)),
         ] 
+
+firstShock = pygame.transform.scale(pygame.image.load('images/png/Dead__000.png'),(100,110))
+secondShock = pygame.transform.scale(pygame.image.load('images/png2/Dead__000.png'),(100,110))
 bg = pygame.image.load("images/Battleground1.jpg")

@@ -11,9 +11,12 @@ from actions.commonState import *
 pygame.init()
 
 members = []
+boxes = []
+members.append(players(int(width - (width * 0.2)),480,firstStay,firstWalk,firstAttack,firstJump,firstShock,0))
+members.append(players(int(width - (width * 0.9)),480,secondStay,secondWalk,secondAttack,secondJump,secondShock,1))
 
-members.append(players(int(width - (width * 0.2)),480,firstStay,firstWalk,firstAttack,firstJump,0))
-members.append(players(int(width - (width * 0.9)),480,secondStay,secondWalk,secondAttack,secondJump,1))
+boxes.append(ActionBox(members[0]))
+boxes.append(ActionBox(members[1]))
 
 def createLifeBox1(life):
     pygame.draw.rect(win, GREEN , (life.x, life.y, life.width, life.height) )
@@ -30,6 +33,16 @@ def createLifeBoxDamaged2():
 lifeBox1 = lifes(10, 300,1)
 lifeBox2 = lifes((width - 310), 300,2)
 
+def repeater(player,box):
+    if box.animCount != 0:
+        if (player.position == 'left'):
+            box.rect.x = player.rect.x - 60
+        else:
+            box.rect.x = player.rect.x + 60
+    else:
+        box.rect.x = player.rect.x
+    box.rect.y = player.rect.y
+
 def drowWindow():
 
     win.blit(bg,(0,0))
@@ -39,11 +52,21 @@ def drowWindow():
     createLifeBoxDamaged2()
     createLifeBox2(lifeBox2)
 
-    for player in members:
-        allAnimationSwich(player)
-        physicalAction(player,touch,win,members.index(player))
-        checkBorder(player)
-        checkAttack(player)
+    for i in range(len(members)):
+        allAnimationSwich(members[i],boxes[i])
+        if i == 0:
+            physicalAction(members[0],touch,win,members.index(members[0]),members[1])
+        else:
+            physicalAction(members[1],touch,win,members.index(members[1]),members[0])
+        repeater(members[i],boxes[i])
+        checkBorder(members[i])
+        if i == 0:
+            hit(boxes[0], members[1], members[0])
+        else: 
+            hit(boxes[1], members[0], members[1])
+
+
+
 
     checkPosition(members[0],members[1])
     GameOver(lifeBox1,lifeBox2)
